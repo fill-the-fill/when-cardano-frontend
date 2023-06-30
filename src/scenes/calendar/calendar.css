@@ -1,0 +1,56 @@
+.fc-localEvents-button {
+    background-color: #2AA18A !important;
+    /* color: #000 !important; */
+}
+
+.fc-virtualEvents-button {
+    background-color: #0538af !important;
+}
+
+.fc-bothEvents-button {
+    background-color: #6684ce !important;
+}
+
+.fc-prev-button {
+    background-color: #6684ce !important;
+}
+
+.fc-next-button {
+    background-color: #6684ce !important;
+}
+
+.fc-today-button {
+    background-color: #6684ce !important;
+}
+
+.fc-listMonth-button {
+    background-color: #6684ce !important;
+}
+
+.fc-timeGridDay-button {
+    background-color: #6684ce !important;
+}
+
+.fc-timeGridWeek-button {
+    background-color: #6684ce !important;
+}
+
+.fc-dayGridMonth-button {
+    background-color: #6684ce !important;
+}
+
+.fc--button {
+    display: none !important;
+}
+
+.fc-day-today {
+    background-color: rgba(102, 132, 206, 0.2) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(102, 132, 206, 0.1) !important;
+}
+/* 
+.fc-dayGridMonth-view .fc-day,
+.fc-dayGridWeek-view .fc-day,
+.fc-dayGridDay-view .fc-day {
+    border-color: #353232 !important;
+} */
+
