@@ -137,7 +137,6 @@ const Calendar = () => {
               select={handleAddEventClick}
               eventClick={handleEventClick}
               eventsSet={(events) => setCurrentEvents(events)}
-              // themeSystem="bootstrap5"
             />
             {selectedEvent && (
               <ExistingEventPopup

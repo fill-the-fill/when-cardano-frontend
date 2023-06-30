@@ -11,8 +11,6 @@ import {
   DialogTitle,
   useMediaQuery,
 } from "@mui/material";
-
-//Add to calendar Button
 import { AddToCalendarButton } from "add-to-calendar-button-react";
 
 export default function ResponsiveDialog(props) {
