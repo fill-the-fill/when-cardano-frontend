@@ -4,7 +4,7 @@ Make sure you add `.env` file that follows the example of `.env.example` and get
 
 Make sure you have the following fields ticked for this to work:
 
-<img width="767" alt="Screenshot 2023-06-30 at 12 02 51" src="https://github.com/fill-the-fill/when-cardano-frontend/assets/60065019/971245df-e993-4b6f-8f9e-93b423d89c01">
+<img width="766" alt="Screenshot 2023-07-06 at 11 12 15" src="https://github.com/fill-the-fill/when-cardano-frontend/assets/60065019/9fab6c21-c9e1-4e81-ab55-ecf03010de9a">
 
 ## Available Scripts
 
