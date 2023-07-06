@@ -70,6 +70,8 @@ const Calendar = () => {
     getBufferContentAsync();
   }, []);
 
+  console.log('push test');
+
   return (
     <Box m="20px">
       <Header title="Cardano Event Calendar" subtitle="Calendar" />
