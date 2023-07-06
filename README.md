@@ -8,6 +8,10 @@ Make sure you have the following fields ticked for this to work:
 
 ## Available Scripts
 
+Start will installing dependencies
+
+### `npm install`
+
 In the project directory, you can run:
 
 ### `npm start`
