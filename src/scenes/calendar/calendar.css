@@ -1,42 +1,41 @@
-.fc-localEvents-button {
-    background-color: #2AA18A !important;
-    /* color: #000 !important; */
-}
-
-.fc-virtualEvents-button {
-    background-color: #0538af !important;
-}
-
 .fc-bothEvents-button {
-    background-color: #6684ce !important;
+    background-color: #3788d8 !important;
+    border-color: #3788d8 !important;
 }
 
 .fc-prev-button {
-    background-color: #6684ce !important;
+    background-color: #3788d8 !important;
+    border-color: #3788d8 !important;
 }
 
 .fc-next-button {
-    background-color: #6684ce !important;
+    background-color: #3788d8 !important;
+    border-color: #3788d8 !important;
 }
 
 .fc-today-button {
-    background-color: #6684ce !important;
+    background-color: #3788d8 !important;
+    border-color: #3788d8 !important;
 }
 
 .fc-listMonth-button {
-    background-color: #6684ce !important;
+    background-color: #3788d8 !important;
+    border-color: #3788d8 !important;
 }
 
 .fc-timeGridDay-button {
-    background-color: #6684ce !important;
+    background-color: #3788d8 !important;
+    border-color: #3788d8 !important;
 }
 
 .fc-timeGridWeek-button {
-    background-color: #6684ce !important;
+    background-color: #3788d8 !important;
+    border-color: #3788d8 !important;
 }
 
 .fc-dayGridMonth-button {
-    background-color: #6684ce !important;
+    background-color: #3788d8 !important;
+    border-color: #3788d8 !important;
 }
 
 .fc--button {

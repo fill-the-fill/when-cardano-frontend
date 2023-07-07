@@ -6,7 +6,7 @@ export const colorDesign = (mode) => ({
   ...(mode === "dark"
     ? {
         grey: {
-          100: "#e0e0e0",
+          100: "#FFFFFF",
           200: "#c2c2c2",
           300: "#a3a3a3",
           400: "#858585",
@@ -41,7 +41,7 @@ export const colorDesign = (mode) => ({
       }
     : {
         grey: {
-          100: "#141414",
+          100: "#000000",
           200: "#292929",
           300: "#3d3d3d",
           400: "#525252",

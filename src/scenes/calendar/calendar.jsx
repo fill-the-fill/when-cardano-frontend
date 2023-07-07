@@ -70,8 +70,6 @@ const Calendar = () => {
     getBufferContentAsync();
   }, []);
 
-  console.log('push test');
-
   return (
     <Box m="20px">
       <Header title="Cardano Event Calendar" subtitle="Calendar" />
@@ -83,18 +81,21 @@ const Calendar = () => {
           p="15px"
           borderRadius="4px"
         >
-          <Typography variant="h5">Events</Typography>
+          <Typography variant="h5" sx={{ fontWeight: 900 }}>
+            All Events
+          </Typography>
           <List>
             {currentEvents.map((event, key) => (
               <ListItem
                 key={key}
                 sx={{
-                  backgroundColor: "#6684ce",
+                  backgroundColor: "#3788d8",
                   margin: "10px 0",
                   borderRadius: "2px",
                 }}
               >
                 <ListItemText
+                  sx={{ color: "#FFFFFF" }}
                   primary={event.title}
                   secondary={
                     <Typography>
