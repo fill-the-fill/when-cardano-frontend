@@ -20,8 +20,8 @@ function App() {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
+              <Route path="/" element={<Calendar />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/calendar" element={<Calendar />} />
               <Route path="/about" element={<FAQ />} />
             </Routes>
           </main>
