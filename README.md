@@ -1,14 +1,4 @@
-# Getting Started with Create React App
-
-Make sure you add `.env` file that follows the example of `.env.example` and get your github token to replace it. This token is required to open PRs for your account.
-
-Make sure you have the following fields ticked for this to work:
-
-<img width="766" alt="Screenshot 2023-07-06 at 11 12 15" src="https://github.com/fill-the-fill/when-cardano-frontend/assets/60065019/9fab6c21-c9e1-4e81-ab55-ecf03010de9a">
-
-Link to database -> [Click me](https://github.com/fill-the-fill/when-calendar)
-
-## Available Scripts
+# Getting Started with Create React App## Available Scripts
 
 Start will installing dependencies
 
