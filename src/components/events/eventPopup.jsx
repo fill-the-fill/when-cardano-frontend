@@ -1,7 +1,6 @@
 import React from "react";
 import moment from "moment";
 import { useTheme } from "@mui/material/styles";
-import { when_cardano_description } from "../../constants/constants";
 import {
   Dialog,
   Button,
@@ -14,6 +13,7 @@ import {
 import { AddToCalendarButton } from "add-to-calendar-button-react";
 
 export default function ResponsiveDialog(props) {
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -55,7 +55,7 @@ export default function ResponsiveDialog(props) {
             startTime={formatedStartTime}
             endTime={formatedEndTime}
             timeZone="Europe/Riga"
-            description={when_cardano_description}
+            description={props.event._def.extendedProps.description}
           ></AddToCalendarButton>
         </DialogContent>
         <DialogActions>
