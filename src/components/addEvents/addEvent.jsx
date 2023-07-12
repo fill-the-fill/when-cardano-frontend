@@ -156,7 +156,6 @@ export default function ResponsiveDialog(props) {
   };
 
   useEffect(() => {
-    console.log(";)");
   }, [success]);
 
   return (

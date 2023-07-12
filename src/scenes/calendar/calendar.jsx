@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import "./calendar.css";
-import axios from "axios";
 import { colorDesign } from "../../theme";
 import listPlugin from "@fullcalendar/list";
 import Header from "../../components/header/Header";
@@ -9,9 +8,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import momentTimezonePlugin from "@fullcalendar/moment-timezone";
-import { github_database } from "../../constants/constants";
 import ExistingEventPopup from "../../components/events/eventPopup";
-import NewEventPopup from "../../components/addEvents/addEventPopup";
+import NewEventPopup from "../../components/addEvents/addEvent";
 import {
   Box,
   List,
@@ -20,12 +18,13 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { Database } from "../../data/database";
 
 const Calendar = () => {
   const theme = useTheme();
   const calendarRef = useRef(null);
   const colors = colorDesign(theme.palette.mode);
-  const [allEvents, setAllEvents] = useState([]);
+
   const [currentEvents, setCurrentEvents] = useState([]);
 
   // Popup state for existing event
@@ -55,24 +54,9 @@ const Calendar = () => {
     setNewOpenEvent(true);
   };
 
-  // Load all events
-  useEffect(() => {
-    const getBufferContentAsync = async () => {
-      try {
-        const response = await axios.get(github_database);
-        console.log(response.data);
-        setAllEvents(response.data.database);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    getBufferContentAsync();
-  }, []);
-
   return (
     <Box m="20px">
-      <Header title="Cardano Event Calendar" subtitle="Calendar" />
+      <Header title="Cardano Event Calendar" />
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
         <Box
@@ -112,7 +96,6 @@ const Calendar = () => {
           </List>
         </Box>
         {/* CALENDAR */}
-        {allEvents.length && (
           <Box flex="1 1 100%" ml="15px">
             <FullCalendar
               height="75vh"
@@ -131,11 +114,11 @@ const Calendar = () => {
               initialView="dayGridMonth"
               timeZone="local"
               editable={true}
-              selectable={true}
+              selectable={false} // Should be true if submitting PRs
               selectMirror={true}
               dayMaxEvents={true}
               ref={calendarRef} // Pass the ref to FullCalendar
-              events={allEvents}
+              events={Database}
               onLoad={handleCalendarLoad}
               select={handleAddEventClick}
               eventClick={handleEventClick}
@@ -156,7 +139,6 @@ const Calendar = () => {
               onClose={() => setNewOpenEvent(false)}
             />
           </Box>
-        )}
       </Box>
     </Box>
   );
