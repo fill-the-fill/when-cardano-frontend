@@ -1,11 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import FAQ from "./scenes/faq";
+import FAQ from "./scenes/faq/Faq";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import Calendar from "./scenes/calendar/calendar";
+import Calendar from "./scenes/calendar/Calendar"
+import Footer from "./components/footer/Footer"
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -24,6 +25,7 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/about" element={<FAQ />} />
             </Routes>
+            <Footer/>
           </main>
         </div>
       </ThemeProvider>

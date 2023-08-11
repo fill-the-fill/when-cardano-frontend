@@ -8,8 +8,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import momentTimezonePlugin from "@fullcalendar/moment-timezone";
-import ExistingEventPopup from "../../components/events/eventPopup";
-import NewEventPopup from "../../components/addEvents/addEvent";
+import ExistingEventPopup from "../../components/events/EventPopup";
+import NewEventPopup from "../../components/addEvents/AddEvent";
 import {
   Box,
   List,
@@ -17,15 +17,23 @@ import {
   ListItemText,
   Typography,
   useTheme,
+  Button,
+  ButtonGroup,
 } from "@mui/material";
-import { Database } from "../../data/database";
+import { Database } from "../../data/Database";
+import TagSelection from "../../components/tags/Tags";
 
 const Calendar = () => {
   const theme = useTheme();
   const calendarRef = useRef(null);
   const colors = colorDesign(theme.palette.mode);
 
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [activeTags, setActiveTags] = useState([]);
+
+  // Initial mode is 'ALL'
+  const [toggleMode, setToggleMode] = useState("allTags");
 
   // Popup state for existing event
   const [openEvent, setOpenEvent] = useState(false);
@@ -54,9 +62,53 @@ const Calendar = () => {
     setNewOpenEvent(true);
   };
 
+  // Handle filtering by tag
+  const handleTagFilter = (tags, mode) => {
+    if (tags.length === 0) {
+      setFilteredEvents(Database); // Display all events
+    } else {
+      const filteredEvents = Database.filter((event) => {
+        if (mode === "allTags") {
+          return tags.some((tag) => event.tags.includes(tag));
+        } else if (mode === "orTags") {
+          return tags.every((tag) => event.tags.includes(tag));
+        }
+      });
+
+      setFilteredEvents(filteredEvents);
+    }
+  };
+
+  // Handle CHanging ALL/OR Mode change
+  const handleToggleModeChange = (mode) => {
+    setToggleMode(mode);
+    handleTagFilter(activeTags, mode);
+  };
+
   return (
     <Box m="20px">
       <Header title="Cardano Event Calendar" />
+      <Box display="flex" justifyContent="space-between" sx={{"marginBottom": '1rem'}}>
+        <TagSelection
+          activeTags={activeTags}
+          setActiveTags={setActiveTags}
+          onTagFilter={(tags) => handleTagFilter(tags, toggleMode)} // Pass toggleMode
+        />
+        <ButtonGroup>
+          <Button
+            variant={toggleMode === "allTags" ? "contained" : "outlined"}
+            onClick={() => handleToggleModeChange("allTags")}
+          >
+            ALL
+          </Button>
+          <Button
+            variant={toggleMode === "orTags" ? "contained" : "outlined"}
+            onClick={() => handleToggleModeChange("orTags")}
+          >
+            OR
+          </Button>
+        </ButtonGroup>
+      </Box>
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
         <Box
@@ -96,49 +148,55 @@ const Calendar = () => {
           </List>
         </Box>
         {/* CALENDAR */}
-          <Box flex="1 1 100%" ml="15px">
-            <FullCalendar
-              height="75vh"
-              plugins={[
-                dayGridPlugin,
-                timeGridPlugin,
-                interactionPlugin,
-                listPlugin,
-                momentTimezonePlugin,
-              ]}
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-              }}
-              initialView="dayGridMonth"
-              timeZone="local"
-              editable={true}
-              selectable={false} // Should be true if submitting PRs
-              selectMirror={true}
-              dayMaxEvents={true}
-              ref={calendarRef} // Pass the ref to FullCalendar
-              events={Database}
-              onLoad={handleCalendarLoad}
-              select={handleAddEventClick}
-              eventClick={handleEventClick}
-              eventsSet={(events) => setCurrentEvents(events)}
-            />
-            {selectedEvent && (
-              <ExistingEventPopup
-                open={openEvent}
-                event={selectedEvent}
-                setOpenEvent={setOpenEvent}
-                onClose={() => setOpenEvent(false)}
-              />
-            )}
-            <NewEventPopup
-              open={openNewEvent}
+        <Box flex="1 1 100%" ml="15px">
+          <FullCalendar
+            height="75vh"
+            plugins={[
+              dayGridPlugin,
+              timeGridPlugin,
+              interactionPlugin,
+              listPlugin,
+              momentTimezonePlugin,
+            ]}
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+            }}
+            initialView="dayGridMonth"
+            timeZone="local"
+            editable={true}
+            selectable={false} // Should be true if submitting PRs
+            selectMirror={true}
+            dayMaxEvents={true}
+            ref={calendarRef} // Pass the ref to FullCalendar
+            events={
+              toggleMode === "orTags"
+                ? filteredEvents
+                : filteredEvents.length > 0
+                ? filteredEvents
+                : Database
+            }
+            onLoad={handleCalendarLoad}
+            select={handleAddEventClick}
+            eventClick={handleEventClick}
+            eventsSet={(events) => setCurrentEvents(events)}
+          />
+          {selectedEvent && (
+            <ExistingEventPopup
+              open={openEvent}
               event={selectedEvent}
-              setNewOpenEvent={setNewOpenEvent}
-              onClose={() => setNewOpenEvent(false)}
+              setOpenEvent={setOpenEvent}
+              onClose={() => setOpenEvent(false)}
             />
-          </Box>
+          )}
+          <NewEventPopup
+            open={openNewEvent}
+            event={selectedEvent}
+            setNewOpenEvent={setNewOpenEvent}
+            onClose={() => setNewOpenEvent(false)}
+          />
+        </Box>
       </Box>
     </Box>
   );
