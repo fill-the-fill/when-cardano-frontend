@@ -27,15 +27,12 @@ const TagSelection = ({ activeTags, setActiveTags, onTagFilter }) => {
         return [...prevActiveTags, tagKey];
       }
     });
-
-    // Call the onTagFilter function with the updated activeTags
-    onTagFilter(activeTags);
   };
 
   // Call the onTagFilter function whenever activeTags change
   useEffect(() => {
     onTagFilter(activeTags);
-  }, [activeTags, onTagFilter]);
+  }, [activeTags]);
 
   return (
     <Grid container spacing={2}>

@@ -28,13 +28,14 @@ const Calendar = () => {
   const calendarRef = useRef(null);
   const colors = colorDesign(theme.palette.mode);
 
+  // Filtered events
   const [filteredEvents, setFilteredEvents] = useState([]);
+  // Current events
   const [currentEvents, setCurrentEvents] = useState([]);
+  // Active tags
   const [activeTags, setActiveTags] = useState([]);
-
   // Initial mode is 'ALL'
   const [toggleMode, setToggleMode] = useState("allTags");
-
   // Popup state for existing event
   const [openEvent, setOpenEvent] = useState(false);
   // Popup state for new event
@@ -74,12 +75,11 @@ const Calendar = () => {
           return tags.every((tag) => event.tags.includes(tag));
         }
       });
-
       setFilteredEvents(filteredEvents);
     }
   };
 
-  // Handle CHanging ALL/OR Mode change
+  // Handle switching ALL/OR toggle
   const handleToggleModeChange = (mode) => {
     setToggleMode(mode);
     handleTagFilter(activeTags, mode);
@@ -88,7 +88,11 @@ const Calendar = () => {
   return (
     <Box m="20px">
       <Header title="Cardano Event Calendar" />
-      <Box display="flex" justifyContent="space-between" sx={{"marginBottom": '1rem'}}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        sx={{ marginBottom: "1rem" }}
+      >
         <TagSelection
           activeTags={activeTags}
           setActiveTags={setActiveTags}
@@ -170,14 +174,8 @@ const Calendar = () => {
             selectMirror={true}
             dayMaxEvents={true}
             ref={calendarRef} // Pass the ref to FullCalendar
-            events={
-              toggleMode === "orTags"
-                ? filteredEvents
-                : filteredEvents.length > 0
-                ? filteredEvents
-                : Database
-            }
-            onLoad={handleCalendarLoad}
+            events={activeTags.length ? filteredEvents : Database}
+            // onLoad={handleCalendarLoad}
             select={handleAddEventClick}
             eventClick={handleEventClick}
             eventsSet={(events) => setCurrentEvents(events)}

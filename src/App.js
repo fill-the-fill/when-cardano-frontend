@@ -5,7 +5,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import FAQ from "./scenes/faq/Faq";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import Calendar from "./scenes/calendar/Calendar"
+import Calendar from "./scenes/calendar/calendar"
 import Footer from "./components/footer/Footer"
 
 function App() {
