@@ -9,17 +9,14 @@
  * INSTRUCTIONS:
  * - Add your event in the JSON array below.
  * - Please make sure your event has a unique ID
- * - Use "#3788d8" color for Virtual event.
- * - Use "#2AA18A" color for Local event.
  * - Please use ISO 8601 format for event start/end
- *
+ * - For tags, please check Tag.js file to find fitting tags. (You can add more than one tag)
  */
 
 export const Database = [
   {
     id: "1",
     title: "Meetup 2023",
-    color: "#3788d8",
     location: "virtual",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typeset.",
@@ -30,7 +27,6 @@ export const Database = [
   {
     id: "2",
     title: "Twitter Event",
-    color: "#3788d8",
     location: "virtual",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typeset.",
@@ -41,7 +37,6 @@ export const Database = [
   {
     id: "3",
     title: "Protocol Event",
-    color: "#2AA18A",
     location: "local",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typeset.",
@@ -52,7 +47,6 @@ export const Database = [
   {
     id: "4",
     title: "dcSpark Event Protocol",
-    color: "#2AA18A",
     location: "local",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typeset.",
@@ -63,7 +57,6 @@ export const Database = [
   {
     id: "5",
     title: "IOG Call",
-    color: "#3788d8",
     location: "virtual",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typeset.",
@@ -74,11 +67,30 @@ export const Database = [
   {
     id: "6",
     title: "Hard Fork Strica",
-    color: "#3788d8",
     location: "virtual",
     description: "adsasjdpasdjpasjdpasjpdaspdan aspodjaspodjapsdas",
     start: "2023-08-12T05:20:00.000Z",
     end: "2023-08-14T11:20:00.000Z",
     tags: ["strica"],
   },
+  {
+    id: "7",
+    title: "Summit 2023",
+    location: "virtual",
+    description: "adsasjdpasdjpasjdpasjpdaspdan aspodjaspodjapsdas",
+    start: "2023-08-07T05:20:00.000Z",
+    end: "2023-08-07T11:20:00.000Z",
+    tags: ["meetups", "cf"],
+  },
+  {
+    id: "8",
+    title: "Emurgo party",
+    location: "virtual",
+    description: "adsasjdpasdjpasjdpasjpdaspdan aspodjaspodjapsdas",
+    start: "2023-08-05T05:20:00.000Z",
+    end: "2023-08-06T11:20:00.000Z",
+    tags: ["meetups", "emurgo"],
+  },
+
+
 ];

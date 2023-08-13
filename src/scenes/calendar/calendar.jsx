@@ -51,10 +51,10 @@ const Calendar = () => {
   };
 
   // Load calendar
-  const handleCalendarLoad = () => {
-    const calendarApi = calendarRef.current.getApi();
-    calendarApi.removeAllEventSources();
-  };
+  // const handleCalendarLoad = () => {
+  //   const calendarApi = calendarRef.current.getApi();
+  //   calendarApi.removeAllEventSources();
+  // };
 
   // Handle adding new event
   const handleAddEventClick = (selected) => {

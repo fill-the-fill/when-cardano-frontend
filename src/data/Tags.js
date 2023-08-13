@@ -1,3 +1,4 @@
+// List of available tags. The tag and the label should be in singular. (PLEASE DO NOT ADD NEW TAGS)
 export const Tags = {
     // Protocol
     protocol: {

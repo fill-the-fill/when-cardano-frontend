@@ -7,13 +7,29 @@ const TagBox = ({ tag, isActive, onClick }) => (
   <div
     className={`tag-box ${isActive ? "active" : ""}`}
     style={{
-      backgroundColor: tag.color,
       width: "100%",
-      border: isActive ? "2px solid red" : "2px solid transparent",
+      border: isActive ? "1px solid #3788d8" : "1px solid #a4a6a8",
+      alignItems: "center",
+      borderRadius: "4px",
+      cursor: "pointer",
+      display: "flex",
+      lineHeight: "1.5",
+      opacity: ".85",
+      padding: "0.275rem 0.8rem",
+      transition: "opacity .2s ease-out",
     }}
     onClick={() => onClick(tag.label)}
   >
     {tag.label}
+    <span
+      style={{
+        backgroundColor: tag.color,
+        width: "10px",
+        height: "10px",
+        borderRadius: "50%",
+        marginLeft: "8px",
+      }}
+    ></span>
   </div>
 );
 

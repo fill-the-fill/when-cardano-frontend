@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, IconButton, useTheme, Link } from "@mui/material";
 import React, { useContext } from "react";
 import { ColorModeContext, colorDesign } from "../../theme";
 import InputBase from "@mui/material/InputBase";
@@ -35,9 +35,11 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
+        <Link href="/about">
         <IconButton>
           <SupervisedUserCircleIcon />
         </IconButton>
+        </Link>
       </Box>
     </Box>
   );
