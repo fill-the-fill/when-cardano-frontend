@@ -74,6 +74,7 @@ const Calendar = () => {
         } else if (mode === "orTags") {
           return tags.every((tag) => event.tags.includes(tag));
         }
+        return false;
       });
       setFilteredEvents(filteredEvents);
     }
