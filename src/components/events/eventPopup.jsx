@@ -17,7 +17,7 @@ export default function ResponsiveDialog(props) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const startDate = props.event._instance.range.start;
-  const endDate = props.event._instance.range.start;
+  const endDate = props.event._instance.range.end;
 
   const formatedStartDate = moment(startDate).format("YYYY-MM-DD");
   const formatedEndDate = moment(endDate).format("YYYY-MM-DD");
