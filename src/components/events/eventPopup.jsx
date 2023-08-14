@@ -59,7 +59,7 @@ export default function ResponsiveDialog(props) {
 
   const MappedTags = () => {
     return props.event._def.extendedProps.tags.map((tag, key) => {
-       return <TagBox tag={tag}/>;
+       return <TagBox tag={tag} key={key} />;
     });
   };
 
