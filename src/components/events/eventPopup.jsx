@@ -13,7 +13,6 @@ import {
 import { AddToCalendarButton } from "add-to-calendar-button-react";
 
 export default function ResponsiveDialog(props) {
-
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -30,6 +29,40 @@ export default function ResponsiveDialog(props) {
     props.setOpenEvent(false);
   };
 
+  const TagBox = ({ tag }) => (
+    <div
+      style={{
+        width: "30%",
+        border: "1px solid #a4a6a8",
+        alignItems: "center",
+        borderRadius: "4px",
+        cursor: "pointer",
+        display: "flex",
+        lineHeight: "1.5",
+        opacity: ".85",
+        padding: "0.275rem 0.8rem",
+        transition: "opacity .2s ease-out",
+      }}
+    >
+      {tag}
+      <span
+        style={{
+          backgroundColor: "red",
+          width: "10px",
+          height: "10px",
+          borderRadius: "50%",
+          marginLeft: "8px",
+        }}
+      ></span>
+    </div>
+  );
+
+  const MappedTags = () => {
+    return props.event._def.extendedProps.tags.map((tag, key) => {
+       return <TagBox tag={tag}/>;
+    });
+  };
+
   return (
     <div>
       <Dialog
@@ -38,12 +71,14 @@ export default function ResponsiveDialog(props) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
+        <DialogTitle id="responsive-dialog-title" style={{ fontSize: 25 }}>
           {props.event._def.title}
         </DialogTitle>
         <DialogContent>
-          Event type: {props.event._def.extendedProps.location}
           <DialogContentText>
+            {/* Event type: {props.event._def.extendedProps.location} */}
+            Tags: <MappedTags/>
+            {props.event._def.extendedProps.description}
             Description: {props.event._def.extendedProps.description}
           </DialogContentText>
           <AddToCalendarButton

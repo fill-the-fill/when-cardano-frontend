@@ -52,10 +52,9 @@ const TagSelection = ({ activeTags, setActiveTags, onTagFilter }) => {
 
   return (
     <Grid container spacing={2}>
-      {Object.keys(Tags).map((tagKey) => (
-        <Grid item xs={3}>
+      {Object.keys(Tags).map((tagKey, key) => (
+        <Grid item xs={3} key={key}>
           <TagBox
-            key={tagKey}
             tag={Tags[tagKey]}
             isActive={activeTags.includes(tagKey)}
             onClick={() => handleTagClick(tagKey)}
