@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import "./calendar.css";
 import { colorDesign } from "../../theme";
@@ -19,15 +19,22 @@ import {
   useTheme,
   Button,
   ButtonGroup,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { Database } from "../../data/Database";
 import TagSelection from "../../components/tags/Tags";
+import moment from "moment-timezone";
 
 const Calendar = () => {
   const theme = useTheme();
   const calendarRef = useRef(null);
   const colors = colorDesign(theme.palette.mode);
 
+  // Converted database with correct timezones
+  const [convertedDatabase, setConvertedDatabase] = useState(Database);
+  // Timezone state
+  const [selectedTimezone, setSelectedTimezone] = useState("UTC"); // Default to local timezone
   // Filtered events
   const [filteredEvents, setFilteredEvents] = useState([]);
   // Current events
@@ -43,18 +50,34 @@ const Calendar = () => {
   // Selected event for popup
   const [selectedEvent, setSelectedEvent] = useState(null);
 
+  // Convert event times to the selected timezone
+  const changeTimeZone = () => {
+   if(activeTags.length === 0){
+    const convertedEvents = Database.map((event) => ({
+      ...event,
+      start: moment(event.start)
+        .tz(selectedTimezone)
+        .format("YYYY-MM-DDTHH:mm:ss"),
+      end: moment(event.end)
+        .tz(selectedTimezone)
+        .format("YYYY-MM-DDTHH:mm:ss"),
+    }));
+    setConvertedDatabase(convertedEvents);
+   };
+  };
+
+  // Handle timezone change
+  const handleTimezoneChange = (event) => {
+    const newTimezone = event.target.value;
+    setSelectedTimezone(newTimezone);
+  };
+
   // Open existing event function
   const handleEventClick = (selected) => {
     const clickedEvent = selected.event;
     setSelectedEvent(clickedEvent);
     setOpenEvent(true);
   };
-
-  // Load calendar
-  // const handleCalendarLoad = () => {
-  //   const calendarApi = calendarRef.current.getApi();
-  //   calendarApi.removeAllEventSources();
-  // };
 
   // Handle adding new event
   const handleAddEventClick = (selected) => {
@@ -63,28 +86,41 @@ const Calendar = () => {
     setNewOpenEvent(true);
   };
 
-  // Handle filtering by tag
-  const handleTagFilter = (tags, mode) => {
-    if (tags.length === 0) {
-      setFilteredEvents(Database); // Display all events
-    } else {
-      const filteredEvents = Database.filter((event) => {
-        if (mode === "allTags") {
-          return tags.some((tag) => event.tags.includes(tag));
-        } else if (mode === "orTags") {
-          return tags.every((tag) => event.tags.includes(tag));
-        }
-        return false;
-      });
-      setFilteredEvents(filteredEvents);
-    }
-  };
+const handleTagFilter = (tags, mode) => {
+  if (tags.length === 0) {
+    changeTimeZone();
+    setFilteredEvents(Database); // Display all events
+  } else {
+    const filteredEvents = Database.filter((event) => {
+      if (mode === "allTags") {
+        return tags.some((tag) => event.tags.includes(tag));
+      } else if (mode === "orTags") {
+        return tags.every((tag) => event.tags.includes(tag));
+      }
+      return false;
+    });
+
+    // Convert event times to the selected timezone
+    const convertedEvents = filteredEvents.map((event) => ({
+      ...event,
+      start : moment(event.start).tz(selectedTimezone).format("YYYY-MM-DDTHH:mm:ss"),
+      end : moment(event.end).tz(selectedTimezone).format("YYYY-MM-DDTHH:mm:ss"),
+    }));
+
+    setFilteredEvents(convertedEvents);
+  }
+};
 
   // Handle switching ALL/OR toggle
   const handleToggleModeChange = (mode) => {
     setToggleMode(mode);
     handleTagFilter(activeTags, mode);
   };
+
+
+  useEffect(() => {
+    handleTagFilter(activeTags, toggleMode);
+  }, [selectedTimezone, activeTags, toggleMode]);
 
   return (
     <Box m="20px">
@@ -97,7 +133,7 @@ const Calendar = () => {
         <TagSelection
           activeTags={activeTags}
           setActiveTags={setActiveTags}
-          onTagFilter={(tags) => handleTagFilter(tags, toggleMode)} // Pass toggleMode
+          onTagFilter={(tags) => handleTagFilter(tags, toggleMode)}
         />
         <ButtonGroup>
           <Button
@@ -113,6 +149,21 @@ const Calendar = () => {
             OR
           </Button>
         </ButtonGroup>
+        <Select
+          label="Timezone"
+          value={selectedTimezone}
+          onChange={handleTimezoneChange}
+          sx={{ minWidth: "120px", marginLeft: "10px" }}
+        >
+          {/* <MenuItem value="local">Local</MenuItem> */}
+          <MenuItem value="UTC">UTC</MenuItem>
+          <MenuItem value="America/New_York">America/New York</MenuItem>
+          <MenuItem value="America/Los_Angeles">America/Los Angeles</MenuItem>
+          <MenuItem value="Europe/London">Europe/London</MenuItem>
+          <MenuItem value="Europe/Paris">Europe/Paris</MenuItem>
+          <MenuItem value="Asia/Tokyo">Asia/Tokyo</MenuItem>
+          <MenuItem value="Australia/Sydney">Australia/Sydney</MenuItem>
+        </Select>
       </Box>
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
@@ -174,9 +225,8 @@ const Calendar = () => {
             selectable={false} // Should be true if submitting PRs
             selectMirror={true}
             dayMaxEvents={true}
-            ref={calendarRef} // Pass the ref to FullCalendar
-            events={activeTags.length ? filteredEvents : Database}
-            // onLoad={handleCalendarLoad}
+            ref={calendarRef}
+            events={activeTags.length ? filteredEvents : convertedDatabase}
             select={handleAddEventClick}
             eventClick={handleEventClick}
             eventsSet={(events) => setCurrentEvents(events)}

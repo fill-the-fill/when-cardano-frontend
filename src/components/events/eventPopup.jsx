@@ -76,6 +76,7 @@ export default function ResponsiveDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
+            {console.log(props.event)}
             {/* Event type: {props.event._def.extendedProps.location} */}
             Tags: <MappedTags/>
             {props.event._def.extendedProps.description}
